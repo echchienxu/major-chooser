@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chọn Chuyên Ngành KHQL</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #e6f8ee; padding: 20px; }
+    h1 { color: #2d7d46; text-align: center; }
+    .question { background: #fff; padding: 15px; margin: 15px 0; border-radius: 12px; }
+    button { padding: 12px 20px; background: #2d7d46; color: #fff; border: none; border-radius: 10px; cursor: pointer; }
+    #result { margin-top: 20px; padding: 20px; background: #fff; border-radius: 12px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>Gợi ý Chuyên Ngành KHQL</h1>
+
+  <form id="quizForm">
+    <div class="question">
+      <p>1. Bạn thích làm việc với nhóm hay quản lý con người?</p>
+      <label><input type="radio" name="q1" value="QLNN"> Quản lý Nhà nước</label><br>
+      <label><input type="radio" name="q1" value="QLTC"> Quản lý Tổ chức</label><br>
+      <label><input type="radio" name="q1" value="QLCN"> Quản lý Công nghệ</label><br>
+    </div>
+
+    <div class="question">
+      <p>2. Bạn mạnh nhất ở kỹ năng nào?</p>
+      <label><input type="radio" name="q2" value="QTNS"> Quản trị Nhân sự</label><br>
+      <label><input type="radio" name="q2" value="PTKD"> Phát triển Kinh doanh</label><br>
+      <label><input type="radio" name="q2" value="QLDA"> Quản lý Dự án</label><br>
+    </div>
+
+    <div class="question">
+      <p>3. Bạn muốn làm công việc hướng đến?</p>
+      <label><input type="radio" name="q3" value="QTNS"> Làm việc với con người</label><br>
+      <label><input type="radio" name="q3" value="QLDA"> Điều phối công việc</label><br>
+      <label><input type="radio" name="q3" value="PTKD"> Phát triển thị trường</label><br>
+    </div>
+
+    <button type="button" onclick="calculateResult()">Xem kết quả</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateResult() {
+      const form = document.getElementById('quizForm');
+      const answers = new FormData(form);
+
+      const scores = {
+        QLNN: 0,
+        QLTC: 0,
+        QLCN: 0,
+        QTNS: 0,
+        PTKD: 0,
+        QLDA: 0
+      };
+
+      for (let value of answers.values()) {
+        scores[value]++;
+      }
+
+      let bestMajor = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+
+      const majorNames = {
+        QLNN: "Quản lý Nhà nước",
+        QLTC: "Quản lý Tổ chức",
+        QLCN: "Quản lý Công nghệ",
+        QTNS: "Quản trị Nhân sự",
+        PTKD: "Phát triển Kinh doanh",
+        QLDA: "Quản lý Dự án"
+      };
+
+      document.getElementById('result').innerHTML = `🔍 <b>Chuyên ngành phù hợp nhất với bạn là:</b> <br><br> ⭐ ${majorNames[bestMajor]}`;
+    }
+  </script>
+</body>
+</html>
